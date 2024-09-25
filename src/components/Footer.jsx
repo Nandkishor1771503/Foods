@@ -49,7 +49,7 @@ function Footer() {
 
           {/* Copyright */}
           <div className="mt-8 text-center text-md text-white opacity-75">
-            &copy; 2024 Veggie Delight. All rights reserved.
+            &copy; 2024 Jawale Foods. All rights reserved.
           </div>
         </div>
       </footer>
