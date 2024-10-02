@@ -77,7 +77,7 @@ function Paneer() {
               href={`https://wa.me/918143366416?text=${encodeURIComponent(
                 `Iam intrested to order this dish ${
                   selectedItem.name
-                } which is nearly ${
+                } i need ${selectedItem.count+1} which is nearly ${
                   selectedItem.price * (selectedItem.count + 1)
                 }`
               )}`}

@@ -28,7 +28,7 @@ function Rice() {
   };
 
   return (
-    <div>
+    <>
       <h1>this is veg fried rice page (fourth)</h1>
       {Data &&
         Data.map((props) => {
@@ -57,7 +57,7 @@ function Rice() {
             </div>
           );
         })}
-      {selecedItems && (
+      {selectedItem && (
         <>
           <div className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5">
             <strong>Name</strong>
@@ -66,23 +66,26 @@ function Rice() {
             <span>{selecedItems.price}</span>
             <strong>Count</strong>
             <span>{selecedItems.count + 1}</span>
-            <strong>Total</strong>
-            <span>{selecedItems.price * (selecedItems.count + 1)}</span>
+            <strong>{selecedItems.price * (selecedItems.count + 1)}</strong>
           </div>
-
-          <div className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5">
-            <strong>Name</strong>
-            <span>{selecedItems.name}</span>
-            <strong>Price</strong>
-            <span>{selecedItems.price}</span>
-            <strong>Count</strong>
-            <span>{selecedItems.count + 1}</span>
-            <strong>Total</strong>
-            <span>{selecedItems.price * (selecedItems.count + 1)}</span>
-          </div>
+          <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full">
+            {" "}
+            <a
+              href={`https://wa.me/918143366416?text=${encodeURIComponent(
+                `Iam intrested to order this dish ${
+                  selecedItems.name
+                } i need ${selecedItems.count+1}  which is nearly ${
+                  selecedItems.price * (selecedItems.count + 1)
+                }`
+              )}`}
+              className="flex items-center justify-center text-white"
+            >
+              <FaWhatsapp /> Order now
+            </a>{" "}
+          </button>
         </>
       )}
-    </div>
+    </>
   );
 }
 

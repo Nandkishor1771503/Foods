@@ -89,7 +89,7 @@ function Roti() {
                   {" "}
                   <a
                     href={`https://wa.me/918143366416?text=${encodeURIComponent(
-                      `Iam intrested to order this dish ${selectedItem.name} which is nearly ${selectedItem.price * (selectedItem.count + 1)}`
+                      `Iam intrested to order this dish ${selectedItem.name} i need ${selectedItem.count+1} which is nearly ${selectedItem.price * (selectedItem.count + 1)}`
                     )}`} className="flex items-center justify-center text-white"
                   >
                     <FaWhatsapp /> Order now 
