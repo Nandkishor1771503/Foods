@@ -13,7 +13,7 @@ function App() {
 
   const hamClick = () => {
     setHam(true);
-    console.log(Ham);
+    // console.log(Ham);
     Ham ? setHam(false) : setHam(true)
     
   };
