@@ -57,7 +57,7 @@ function Rice() {
             </div>
           );
         })}
-      {selectedItem && (
+      {selecedItems && (
         <>
           <div className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5">
             <strong>Name</strong>
