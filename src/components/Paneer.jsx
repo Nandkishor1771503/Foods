@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import paneer from "../data/two";
+import { FaWhatsapp } from "react-icons/fa";
 
 function Paneer() {
   let data = paneer;
@@ -67,9 +68,24 @@ function Paneer() {
             <strong>Price</strong>
             <span>{selectedItem.price}</span>
             <strong>Count</strong>
-            <span>{selectedItem.count+1}</span>
-            <strong>{selectedItem.price*(selectedItem.count+1)}</strong>
+            <span>{selectedItem.count + 1}</span>
+            <strong>{selectedItem.price * (selectedItem.count + 1)}</strong>
           </div>
+          <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full">
+            {" "}
+            <a
+              href={`https://wa.me/918143366416?text=${encodeURIComponent(
+                `Iam intrested to order this dish ${
+                  selectedItem.name
+                } which is nearly ${
+                  selectedItem.price * (selectedItem.count + 1)
+                }`
+              )}`}
+              className="flex items-center justify-center text-white"
+            >
+              <FaWhatsapp /> Order now
+            </a>{" "}
+          </button>
         </>
       )}
     </>

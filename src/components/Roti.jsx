@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import firstData from "../data/one";
+import Whatsapp_icon from "./Whatsapp";
+import { FaWhatsapp } from "react-icons/fa";
 
 function Roti() {
   // Initial state with count for each item in the array
@@ -67,7 +69,6 @@ function Roti() {
             </div>
           );
         })}
-
       {/* Display selected item details */}
       {selectedItem && (
         <>
@@ -84,6 +85,16 @@ function Roti() {
             <h2>Total</h2>
             <span>{selectedItem.price * (selectedItem.count + 1)}</span>
           </div>
+          <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full">
+                  {" "}
+                  <a
+                    href={`https://wa.me/918143366416?text=${encodeURIComponent(
+                      `Iam intrested to order this dish ${selectedItem.name} which is nearly ${selectedItem.price * (selectedItem.count + 1)}`
+                    )}`} className="flex items-center justify-center text-white"
+                  >
+                    <FaWhatsapp /> Order now 
+                  </a>{" "}
+                </button>
           <div>
             <strong>Grand total</strong>{" "}
             <span>{selectedItem.price * (selectedItem.count + 1)}</span>

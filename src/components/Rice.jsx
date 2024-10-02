@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import rice_dishes from "../data/four";
+import { FaWhatsapp } from "react-icons/fa";
 
 function Rice() {
   let data = rice_dishes;
@@ -57,17 +58,29 @@ function Rice() {
           );
         })}
       {selecedItems && (
-          
-        <div className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5">
-          <strong>Name</strong>
-          <span>{selecedItems.name}</span>
-          <strong>Price</strong>
-          <span>{selecedItems.price}</span>
-          <strong>Count</strong>
-          <span>{selecedItems.count+1}</span>
-          <strong>Total</strong>
-          <span>{selecedItems.price*(selecedItems.count+1)}</span>
-        </div>
+        <>
+          <div className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5">
+            <strong>Name</strong>
+            <span>{selecedItems.name}</span>
+            <strong>Price</strong>
+            <span>{selecedItems.price}</span>
+            <strong>Count</strong>
+            <span>{selecedItems.count + 1}</span>
+            <strong>Total</strong>
+            <span>{selecedItems.price * (selecedItems.count + 1)}</span>
+          </div>
+
+          <div className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5">
+            <strong>Name</strong>
+            <span>{selecedItems.name}</span>
+            <strong>Price</strong>
+            <span>{selecedItems.price}</span>
+            <strong>Count</strong>
+            <span>{selecedItems.count + 1}</span>
+            <strong>Total</strong>
+            <span>{selecedItems.price * (selecedItems.count + 1)}</span>
+          </div>
+        </>
       )}
     </div>
   );
