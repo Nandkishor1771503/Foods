@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import firstData from "../data/one";
-import Whatsapp_icon from "./Whatsapp";
+// import Whatsapp_icon from "./Whatsapp";
 import { FaWhatsapp } from "react-icons/fa";
 
 function Roti() {
   // Initial state with count for each item in the array
   const initialData = firstData;
-  const [data, setFirstData] = useState(initialData);
+  const [Data, setFirstData] = useState(initialData);
 
   // State to store the selected item data
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(initialData);
 
   // Function to handle increment for specific item by id
   const counterPlus = (id) => {
     setFirstData(
-      data.map((item) =>
+      Data.map((item) =>
         item.id === id ? { ...item, count: item.count + 1 } : item
       )
     );
@@ -23,7 +23,7 @@ function Roti() {
   // Function to handle decrement for specific item by id
   const counterMinus = (id) => {
     setFirstData(
-      data.map((item) =>
+      Data.map((item) =>
         item.id === id && item.count > 0
           ? { ...item, count: item.count - 1 }
           : item
@@ -33,8 +33,9 @@ function Roti() {
 
   // Function to handle selecting an item to display in another div
   const handleSelectItem = (item) => {
-    setSelectedItem(item); // Set the selected item's data
+    setSelectedItem({ ...item }); // Set the selected item's data
     console.log(count);
+    selectedItem.total = selectedItem.price * (selectedItem.count + 1);
   };
 
   return (
@@ -42,8 +43,8 @@ function Roti() {
       <h1>This is the roti page (one)</h1>
 
       {/* Display all items */}
-      {data &&
-        data.map((props) => {
+      {Data &&
+        Data.map((props) => {
           return (
             <div
               key={props.id}
@@ -70,37 +71,55 @@ function Roti() {
           );
         })}
       {/* Display selected item details */}
-      {selectedItem && (
-        <>
-          <div className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5">
-            <p>
-              <strong>Name:</strong> {selectedItem.name}
-            </p>
-            <p>
-              <strong>Price:</strong> {selectedItem.price}
-            </p>
-            <p>
-              <strong>Count:</strong> {selectedItem.count + 1}
-            </p>
-            <h2>Total</h2>
-            <span>{selectedItem.price * (selectedItem.count + 1)}</span>
-          </div>
-          <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full">
-                  {" "}
-                  <a
-                    href={`https://wa.me/918143366416?text=${encodeURIComponent(
-                      `Iam intrested to order this dish ${selectedItem.name} i need ${selectedItem.count+1} which is nearly ${selectedItem.price * (selectedItem.count + 1)}`
-                    )}`} className="flex items-center justify-center text-white"
-                  >
-                    <FaWhatsapp /> Order now 
-                  </a>{" "}
-                </button>
-          <div>
-            <strong>Grand total</strong>{" "}
-            <span>{selectedItem.price * (selectedItem.count + 1)}</span>
-          </div>
-        </>
-      )}
+      <div>
+        {selectedItem &&
+          Data.map((i) => {
+            return (
+              <div className={`${i.count > 0 ? "block" : "hidden"}`}>
+                <div
+                  className="w-full bg-orange-300 text-black p-2 my-5 rounded flex gap-5 "
+                  key={i.id}
+                >
+                  <p>
+                    <strong>Name:</strong> {i.name}
+                  </p>
+                  <p>
+                    <strong>Price:</strong> {i.price}
+                  </p>
+                  <p>
+                    <strong>Count:</strong> {i.count}
+                  </p>
+                  <h2>Total</h2>
+                  <span>{i.price * i.count}</span>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+      <div>
+        <strong className=" text-black text-xl">Grand Total : </strong>
+        <span className="text-black  text-lg">
+          ₹{Data.reduce((acc, i) => acc + i.price * i.count, 0)}
+        </span>
+      </div>
+
+      <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full mt-6">
+        {" "}
+        <a
+          href={`https://wa.me/918143366416?text=${encodeURIComponent(
+            `Iam intrested to order this dish ${Data.map((item) => {
+              if (item.count > 0) {
+                return `\n${item.name}\ncount: ${item.count}\nprice: ${
+                  item.price * item.count
+                }\n`;
+              }
+            })}\n Grand total : ${Data.reduce((acc, i) => acc + i.price * i.count, 0)} `
+          )}`}
+          className="flex items-center justify-center text-white"
+        >
+          <FaWhatsapp /> Order now
+        </a>{" "}
+      </button>
     </>
   );
 }
