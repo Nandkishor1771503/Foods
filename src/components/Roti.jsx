@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import firstData from "../data/one";
 // import Whatsapp_icon from "./Whatsapp";
 import { FaWhatsapp } from "react-icons/fa";
@@ -6,10 +6,20 @@ import { FaWhatsapp } from "react-icons/fa";
 function Roti() {
   // Initial state with count for each item in the array
   const initialData = firstData;
-  const [Data, setFirstData] = useState(initialData);
+  
+  const [Data, setFirstData] = useState(() => {
+    const savedItems = localStorage.getItem("data");
+    return savedItems ? JSON.parse(savedItems) : initialData;
+  });
 
-  // State to store the selected item data
-  const [selectedItem, setSelectedItem] = useState(initialData);
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(Data));
+  }, [Data]);
+
+  const Delete = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
 
   // Function to handle increment for specific item by id
   const counterPlus = (id) => {
@@ -31,13 +41,6 @@ function Roti() {
     );
   };
 
-  // Function to handle selecting an item to display in another div
-  const handleSelectItem = (item) => {
-    setSelectedItem({ ...item }); // Set the selected item's data
-    console.log(count);
-    selectedItem.total = selectedItem.price * (selectedItem.count + 1);
-  };
-
   return (
     <>
       <h1>This is the roti page (one)</h1>
@@ -49,7 +52,7 @@ function Roti() {
             <div
               key={props.id}
               className="w-12/12 bg-orange-200 text-black p-2 my-5 rounded flex gap-5"
-              onClick={() => handleSelectItem(props, props.count)} // Select item when clicked
+              // onClick={() => handleSelectItem(props, props.count)} // Select item when clicked
             >
               <span className="font-medium">{props.id}.</span>
               <h2 className="w-10/12 text-lg">{props.name}</h2>
@@ -72,7 +75,7 @@ function Roti() {
         })}
       {/* Display selected item details */}
       <div>
-        {selectedItem &&
+        {Data &&
           Data.map((i) => {
             return (
               <div className={`${i.count > 0 ? "block" : "hidden"}`}>
@@ -103,7 +106,10 @@ function Roti() {
         </span>
       </div>
 
-      <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full mt-6">
+      <button
+        className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full mt-6"
+        disabled="disable"
+      >
         {" "}
         <a
           href={`https://wa.me/918143366416?text=${encodeURIComponent(
@@ -113,13 +119,17 @@ function Roti() {
                   item.price * item.count
                 }\n`;
               }
-            })}\n Grand total : ${Data.reduce((acc, i) => acc + i.price * i.count, 0)} `
+            })}\n Grand total : ${Data.reduce(
+              (acc, i) => acc + i.price * i.count,
+              0
+            )} `
           )}`}
           className="flex items-center justify-center text-white"
         >
           <FaWhatsapp /> Order now
         </a>{" "}
       </button>
+      <button onClick={Delete}>Clear all</button>
     </>
   );
 }
