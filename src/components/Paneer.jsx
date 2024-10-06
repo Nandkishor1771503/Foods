@@ -1,13 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import paneer from "../data/two";
 import { FaWhatsapp } from "react-icons/fa";
 
 function Paneer() {
   const initialData = paneer;
-  const [Data, setFirstData] = useState(initialData);
+  const [Data, setFirstData] = useState(() => {
+    const savedItems = localStorage.getItem("panner");
+    return savedItems ? JSON.parse(savedItems) : initialData;
+  });
 
-  // State to store the selected item data
-  const [selectedItem, setSelectedItem] = useState(initialData);
+  useEffect(() => {
+    localStorage.setItem("panner", JSON.stringify(Data));
+  }, [Data]);
+
+  const Delete = () => {
+    localStorage.removeItem("panner");
+    window.location.reload();
+  };
 
   // Function to handle increment for specific item by id
   const counterPlus = (id) => {
@@ -29,16 +38,9 @@ function Paneer() {
     );
   };
 
-  // Function to handle selecting an item to display in another div
-  const handleSelectItem = (item) => {
-    setSelectedItem({ ...item }); // Set the selected item's data
-    console.log(count);
-    selectedItem.total = selectedItem.price * (selectedItem.count + 1);
-  };
-
   return (
     <>
-      <h1>This is the roti page (one)</h1>
+      <h1>This is the Panner page (second)</h1>
 
       {/* Display all items */}
       {Data &&
@@ -47,7 +49,7 @@ function Paneer() {
             <div
               key={props.id}
               className="w-12/12 bg-orange-200 text-black p-2 my-5 rounded flex gap-5"
-              onClick={() => handleSelectItem(props, props.count)} // Select item when clicked
+              // onClick={() => handleSelectItem(props, props.count)} // Select item when clicked
             >
               <span className="font-medium">{props.id}.</span>
               <h2 className="w-10/12 text-lg">{props.name}</h2>
@@ -70,7 +72,7 @@ function Paneer() {
         })}
       {/* Display selected item details */}
       <div>
-        {selectedItem &&
+        {Data &&
           Data.map((i) => {
             return (
               <div className={`${i.count > 0 ? "block" : "hidden"}`}>
@@ -101,7 +103,11 @@ function Paneer() {
         </span>
       </div>
 
-      <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full mt-6">
+      <div className="flex mt-8">
+      <button
+        className="bg-green-600 text-2xl ml-5 w-[50%] h-16 rounded-full p-4 text-center "
+        
+      >
         {" "}
         <a
           href={`https://wa.me/918143366416?text=${encodeURIComponent(
@@ -111,13 +117,20 @@ function Paneer() {
                   item.price * item.count
                 }\n`;
               }
-            })}\n Grand total : ${Data.reduce((acc, i) => acc + i.price * i.count, 0)} `
+            })}\n Grand total : ${Data.reduce(
+              (acc, i) => acc + i.price * i.count,
+              0
+            )} `
           )}`}
           className="flex items-center justify-center text-white"
         >
           <FaWhatsapp /> Order now
         </a>{" "}
       </button>
+      <button className="rounded-full m-3" onClick={Delete}>
+        Clear all
+      </button>
+      </div>
     </>
   );
 }

@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Manchuria from "../data/three";
 import { FaWhatsapp } from "react-icons/fa";
 
 function Manchuriafn() {
   const initialData = Manchuria;
-  const [Data, setFirstData] = useState(initialData);
+  const [Data, setFirstData] = useState(() => {
+    const savedItems = localStorage.getItem("manchuria");
+    return savedItems ? JSON.parse(savedItems) : initialData;
+  });
 
-  // State to store the selected item data
-  const [selectedItem, setSelectedItem] = useState(initialData);
+  useEffect(()=>{
+    localStorage.setItem("manchuria",JSON.stringify(Data))
+  },[Data])
 
   // Function to handle increment for specific item by id
   const counterPlus = (id) => {
@@ -29,12 +33,12 @@ function Manchuriafn() {
     );
   };
 
+  const Delete = ()=>{
+    localStorage.removeItem("manchuria")
+    window.location.reload()
+  }
+
   // Function to handle selecting an item to display in another div
-  const handleSelectItem = (item) => {
-    setSelectedItem({ ...item }); // Set the selected item's data
-    console.log(count);
-    selectedItem.total = selectedItem.price * (selectedItem.count + 1);
-  };
 
   return (
     <>
@@ -47,7 +51,6 @@ function Manchuriafn() {
             <div
               key={props.id}
               className="w-12/12 bg-orange-200 text-black p-2 my-5 rounded flex gap-5"
-              onClick={() => handleSelectItem(props, props.count)} // Select item when clicked
             >
               <span className="font-medium">{props.id}.</span>
               <h2 className="w-10/12 text-lg">{props.name}</h2>
@@ -70,7 +73,7 @@ function Manchuriafn() {
         })}
       {/* Display selected item details */}
       <div>
-        {selectedItem &&
+        {Data &&
           Data.map((i) => {
             return (
               <div className={`${i.count > 0 ? "block" : "hidden"}`}>
@@ -101,7 +104,11 @@ function Manchuriafn() {
         </span>
       </div>
 
-      <button className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full mt-6">
+      <div className="flex mt-8">
+      <button
+        className="bg-green-600 text-2xl ml-5 w-[45%] h-16 rounded-full p-4 text-center "
+        
+      >
         {" "}
         <a
           href={`https://wa.me/918143366416?text=${encodeURIComponent(
@@ -111,13 +118,20 @@ function Manchuriafn() {
                   item.price * item.count
                 }\n`;
               }
-            })}\n Grand total : ${Data.reduce((acc, i) => acc + i.price * i.count, 0)} `
+            })}\n Grand total : ${Data.reduce(
+              (acc, i) => acc + i.price * i.count,
+              0
+            )} `
           )}`}
           className="flex items-center justify-center text-white"
         >
           <FaWhatsapp /> Order now
         </a>{" "}
       </button>
+      <button className="rounded-full m-3" onClick={Delete}>
+        Clear all
+      </button>
+      </div>
     </>
   );
 }

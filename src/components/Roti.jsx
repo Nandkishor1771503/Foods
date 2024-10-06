@@ -6,7 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 function Roti() {
   // Initial state with count for each item in the array
   const initialData = firstData;
-  
+
   const [Data, setFirstData] = useState(() => {
     const savedItems = localStorage.getItem("data");
     return savedItems ? JSON.parse(savedItems) : initialData;
@@ -17,7 +17,7 @@ function Roti() {
   }, [Data]);
 
   const Delete = () => {
-    localStorage.clear();
+    localStorage.removeItem("data");  //clears the data of only "data" key word 
     window.location.reload();
   };
 
@@ -106,9 +106,10 @@ function Roti() {
         </span>
       </div>
 
+      <div className="flex mt-8">
       <button
-        className="bg-green-600 text-2xl  w-[50%] ml-5 mb-4 p-1 rounded-full mt-6"
-        disabled="disable"
+        className="bg-green-600 text-2xl ml-5 w-[50%] h-16 rounded-full p-4 text-center"
+        
       >
         {" "}
         <a
@@ -129,7 +130,11 @@ function Roti() {
           <FaWhatsapp /> Order now
         </a>{" "}
       </button>
-      <button onClick={Delete}>Clear all</button>
+      <button className="rounded-full m-3" onClick={Delete}>
+        Clear all
+      </button>
+      </div>
+      
     </>
   );
 }
