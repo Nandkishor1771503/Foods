@@ -17,7 +17,7 @@ function Roti() {
   }, [Data]);
 
   const Delete = () => {
-    localStorage.removeItem("data");  //clears the data of only "data" key word 
+    localStorage.removeItem("data"); //clears the data of only "data" key word
     window.location.reload();
   };
 
@@ -43,7 +43,7 @@ function Roti() {
 
   return (
     <>
-      <h1>This is the roti page (one)</h1>
+      <h1>This is the Roti page (one)</h1>
 
       {/* Display all items */}
       {Data &&
@@ -107,34 +107,30 @@ function Roti() {
       </div>
 
       <div className="flex mt-8">
-      <button
-        className="bg-green-600 text-2xl ml-5 w-[50%] h-16 rounded-full p-4 text-center"
-        
-      >
-        {" "}
-        <a
-          href={`https://wa.me/918143366416?text=${encodeURIComponent(
-            `Iam intrested to order this dish ${Data.map((item) => {
-              if (item.count > 0) {
-                return `\n${item.name}\ncount: ${item.count}\nprice: ${
-                  item.price * item.count
-                }\n`;
-              }
-            })}\n Grand total : ${Data.reduce(
-              (acc, i) => acc + i.price * i.count,
-              0
-            )} `
-          )}`}
-          className="flex items-center justify-center text-white"
-        >
-          <FaWhatsapp /> Order now
-        </a>{" "}
-      </button>
-      <button className="rounded-full m-3" onClick={Delete}>
-        Clear all
-      </button>
+        <button className="bg-green-600 text-xl ml-5 w-[50%] h-16 rounded-full p-4 text-center">
+          {" "}
+          <a
+            href={`https://wa.me/918143366416?text=${encodeURIComponent(
+              `Iam intrested to order this dish ${Data.map((item) => {
+                if (item.count > 0) {
+                  return `\n${item.name}\ncount: ${item.count}\nprice: ${
+                    item.price * item.count
+                  }\n`;
+                }
+              })}\n Grand total : ${Data.reduce(
+                (acc, i) => acc + i.price * i.count,
+                0
+              )} `
+            )}`}
+            className="flex items-center justify-center text-white"
+          >
+            <FaWhatsapp /> Order now
+          </a>{" "}
+        </button>
+        <button className="rounded-full m-3" onClick={Delete}>
+          Clear all
+        </button>
       </div>
-      
     </>
   );
 }
