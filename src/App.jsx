@@ -29,7 +29,7 @@ function App() {
           <ul className={ulStyle}>Contact</ul>
         </header>
         <div className="flex justify-between w-screen">
-          <h1 className="ml-4">Foods</h1>
+          <h1 className="ml-4">Quick Bite 🍔</h1>
           <FaHamburger
             className="text-4xl mr-10 cursor-pointer md:hidden"
             onClick={hamClick}
