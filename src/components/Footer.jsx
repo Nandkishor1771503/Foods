@@ -8,7 +8,7 @@ function Footer() {
           <div className="flex flex-col md:flex-row justify-between ml-6 ">
             {/* Logo and Description */}
             <div className="mb-6 md:mb-0">
-              <h1 className="text-2xl font-bold">Veggie Delight</h1>
+              <h1 className="text-2xl font-bold">Quick Bite </h1>
               <p className="text-md mt-2">
                 Serving fresh and healthy vegetarian fast food since 2020.
               </p>

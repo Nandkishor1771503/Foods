@@ -15,7 +15,7 @@ const Manchuria = [
     },
     {
         id: 3,
-        name: 'Plak manchuria',
+        name: 'Palak manchuria',
         price: '70',
         count: 0,
         total : 0
