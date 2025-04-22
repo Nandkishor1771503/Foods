@@ -22,7 +22,7 @@ const Manchuria = [
     },
     {
         id: 4,
-        name: 'Plak manchuria (full)',
+        name: 'Palak manchuria (full)',
         price: 140,
         count: 0,
         total : 0
